@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQ文字上下滚动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .sliader, .sliader2 {
+            margin: 10px 0 0;
+            height: 28px;
+            width: 300px;
+            border: 2px solid #eee;
+            overflow: hidden;
+        }
+
+        .sliader3 {
+            margin: 10px 0 0;
+            height: 28px;
+            width: 300px;
+            border: 2px solid #eee;
+            overflow: hidden;
+        }
+
+        .con2 {
+            margin-top: 0px;
+        }
+
+        .con li, .con2 li {
+            line-height: 28px;
+            height: 28px;
+            overflow: hidden
+        }
+
+        .con3 {
+            width: 3000px;
+        }
+
+        .con3 li {
+            line-height: 28px;
+            height: 28px;
+            overflow: hidden;
+            display: inline-block;
+            width: 300px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script language="javascript">
+        //文字上下滚动
+        function AutoScroll() {
+            $('.con').animate({
+                marginTop: "-28px"
+            }, 500, function () {
+                $(this).css({marginTop: "0px"}).find("li:first").appendTo(this);
+            });
+        }
+        function AutoScroll2() {
+            $('.con2').animate({
+                marginTop: "0px"
+            }, 500, function () {
+                $(this).css({marginTop: "-28px"}).find("li:last").prependTo(this);
+            });
+        }
+        function AutoScroll3() {
+            $('.con3').animate({
+                marginLeft: "-300px"
+            }, 1000, function () {
+                $(this).css({marginLeft: "0px"}).find("li:first").appendTo(this);
+            });
+        }
+
+        $(document).ready(function () {
+            setInterval('AutoScroll()', 2000);
+            setInterval('AutoScroll2()', 2000);
+            setInterval('AutoScroll3()', 2000);
+        });
+    </script>
+</head>
+<body>
+<div class="box">
+    <div class="sliader" id="scroTxt">
+        <ul class="con">
+            <li>1、我是华丽的文字1</li>
+            <li>2、我是华丽的文字2</li>
+            <li>3、我是华丽的文字3</li>
+            <li>4、我是华丽的文字4</li>
+            <li>5、我是华丽的文字5</li>
+            <li>6、我是华丽的文字6</li>
+            <li>7、我是华丽的文字7</li>
+            <li>8、我是华丽的文字8</li>
+            <li>9、我是华丽的文字9</li>
+        </ul>
+    </div>
+</div>
+
+<div class="box2">
+    <div class="sliader2" id="scroTxt2">
+        <ul class="con2">
+            <li>1、我是向下滚动华丽的文字1</li>
+            <li>9、我是向下滚动华丽的文字9</li>
+            <li>8、我是向下滚动华丽的文字8</li>
+            <li>7、我是向下滚动华丽的文字7</li>
+            <li>6、我是向下滚动华丽的文字6</li>
+            <li>5、我是向下滚动华丽的文字5</li>
+            <li>4、我是向下滚动华丽的文字4</li>
+            <li>3、我是向下滚动华丽的文字3</li>
+            <li>2、我是向下滚动华丽的文字2</li>
+        </ul>
+    </div>
+</div>
+<div class="box3">
+    <div class="sliader3" id="scroTxt3">
+        <ul class="con3">
+            <li>1、我是华丽的文字1</li>
+            <li>2、我是华丽的文字2</li>
+            <li>3、我是华丽的文字3</li>
+            <li>4、我是华丽的文字4</li>
+            <li>5、我是华丽的文字5</li>
+            <li>6、我是华丽的文字6</li>
+            <li>7、我是华丽的文字7</li>
+            <li>8、我是华丽的文字8</li>
+            <li>9、我是华丽的文字9</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

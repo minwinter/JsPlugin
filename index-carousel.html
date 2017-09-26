@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQ轮播图左右滚动</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        .clearfix:after {
+            display: block;
+            visibility: hidden;
+            clear: both;
+            width: 0;
+            height: 0;
+            content: '';
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+
+        .container {
+            position: relative;
+            overflow: hidden;
+            width: 600px;
+            height: 400px;
+            border: 3px solid red;
+        }
+
+        .list {
+            position: absolute;
+            z-index: 1;
+            width: 4200px;
+            height: 400px;
+        }
+
+        .list img {
+            float: left;
+        }
+
+        .buttons {
+            position: absolute;
+            bottom: 20px;
+            left: 240px;
+            width: 120px;
+            height: 10px;
+            z-index: 2;
+        }
+
+        .buttons .btn-point {
+            float: left;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            background: #333;
+        }
+
+        .btn-point.btn-on {
+            background: orange;
+        }
+
+        .arrow {
+            position: absolute;
+            z-index: 2;
+            top: 180px;
+            font-size: 36px;
+            color: #fff;
+        }
+
+        .arrow.prev {
+            left: 20px;
+        }
+
+        .arrow.next {
+            right: 20px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div id="container" class="container">
+    <div id="list" class="list clearfix">
+        <img src="img/1.png" alt="1">
+        <img src="img/2.png" alt="2">
+        <img src="img/3.png" alt="3">
+        <img src="img/4.png" alt="4">
+        <img src="img/5.png" alt="5">
+        <img src="img/6.png" alt="6">
+        <img src="img/7.png" alt="7">
+    </div>
+    <div class="buttons clearfix">
+        <span data-index="1" class="btn-point btn-on"></span>
+        <span data-index="2" class="btn-point"></span>
+        <span data-index="3" class="btn-point"></span>
+        <span data-index="4" class="btn-point"></span>
+        <span data-index="5" class="btn-point"></span>
+        <span data-index="6" class="btn-point"></span>
+        <span data-index="7" class="btn-point"></span>
+    </div>
+    <a href="javascript:;" class="arrow prev" id="prev"><</a>
+    <a href="javascript:;" class="arrow next" id="next">></a>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var $container = $('.container');
+        var $list = $('div.list', $container);
+        var $prev = $('a.prev', $container);
+        var $next = $('a.next', $container);
+        var $buttons = $('span.btn-point', $container);
+        var index = 1;
+        var timer = null;
+
+        function bindEvent() {
+            $prev.off('click').on('click', function () {
+                if (index == 1) {
+                    index = 7;
+                    $list.animate({left: '-3600px'}, 400);
+                } else {
+                    index -= 1;
+                    $list.animate({left: '+=600px'}, 400);
+                }
+                showButton();
+            });
+
+            $next.off('click').on('click', function () {
+                console.info(index);
+                if (index == 7) {
+                    index = 1;
+                    $list.animate({left: '0'}, 400);
+                } else {
+                    index += 1;
+                    $list.animate({left: '-=600px'}, 400);
+                }
+                showButton();
+            });
+
+            $buttons.each(function () {
+                $(this).off('click').on('click', function () {
+                    var clickIndex = parseInt($(this).attr('data-index'));
+                    var offset = -600 * (clickIndex - 1);
+                    $list.animate({left: offset + 'px'}, 400);
+                    index = clickIndex;
+                    showButton();
+                });
+            });
+            $container.hover(stop, play);
+        }
+
+        function showButton() {
+            //遍历所有的小圆点，置灰
+            $buttons.removeClass('btn-on');
+            $buttons.eq(index - 1).addClass('btn-on');
+        }
+
+        function play() {
+            timer = setTimeout(function () {
+                $next.trigger('click');
+                play();
+            }, 2000);
+        }
+
+        function stop() {
+            clearTimeout(timer);
+        }
+
+        function init() {
+            bindEvent();
+            play();
+        }
+
+        init();
+    });
+</script>
+</body>
+</html>
