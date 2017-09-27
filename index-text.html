@@ -49,23 +49,26 @@
     </style>
     <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script language="javascript">
+        var $box = $('.box');
+        var $box2 = $('.box2');
+        var $box3 = $('.box3');
         //文字上下滚动
         function AutoScroll() {
-            $('.con').animate({
+            $('ul.con', $box).animate({
                 marginTop: "-28px"
             }, 500, function () {
                 $(this).css({marginTop: "0px"}).find("li:first").appendTo(this);
             });
         }
         function AutoScroll2() {
-            $('.con2').animate({
+            $('ul.con2', $box2).animate({
                 marginTop: "0px"
             }, 500, function () {
                 $(this).css({marginTop: "-28px"}).find("li:last").prependTo(this);
             });
         }
         function AutoScroll3() {
-            $('.con3').animate({
+            $('ul.con3', $box3).animate({
                 marginLeft: "-300px"
             }, 1000, function () {
                 $(this).css({marginLeft: "0px"}).find("li:first").appendTo(this);
